@@ -1,0 +1,97 @@
+substitutions:
+  devicename: bedroomfan
+
+esphome:
+  name: $devicename
+
+esp8266:
+  board: esp01_1m
+
+
+logger:
+  level: INFO  # This will hide the datapoint messages
+  baud_rate: 0
+#logger:
+  #baud_rate: 0
+
+uart:
+  rx_pin: GPIO13
+  tx_pin: GPIO15
+  baud_rate: 9600
+
+tuya:
+
+# Tuya MCU Power Switch (Datapoint 1)
+switch:
+  - platform: "tuya"
+    name: "$devicename Power"
+    id: mybedroom_fan_switch
+    switch_datapoint: 1
+    internal: true
+
+# Tuya LED Control (Datapoint 9) - NEW SECTION
+  - platform: "tuya"
+    name: "$devicename LED"
+    id: mybedroom_fan_led
+    switch_datapoint: 9
+    restore_mode: RESTORE_DEFAULT_OFF  # Optional: Set default state after power loss
+
+number:
+  - platform: "tuya"
+    name: "$devicename Speed Control"
+    id: mybedroom_fan_speed
+    number_datapoint: 3
+    min_value: 1
+    max_value: 6  # Includes all speeds including boost
+    step: 1
+    internal: true  # Hide from Home Assistant
+
+fan:
+  - platform: tuya
+    name: "$devicename"
+    id: mybedroom_fan
+    switch_datapoint: 1
+    speed_datapoint: 3
+    speed_count: 6  # Must match number's max_value
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_id
+  password: !secret wifi_pw
+  ap:
+    ssid: $devicename
+    password: "1122334455"
+  on_connect:
+    - delay: 1000ms  # Wait for MCU to initialize
+    - switch.turn_on: mybedroom_fan_switch
+    - delay: 500ms  # Small delay between commands
+    - number.set:
+          id: mybedroom_fan_speed
+          value: 3  # Default speed (medium)
+
+captive_portal:
+web_server:
+  version: 3
+
+
+sensor:
+ # Wifi signal sensor.
+ - platform: wifi_signal
+   name: "$devicename-wifi"
+   update_interval: 600s
+   unit_of_measurement: '%'
+   filters:
+    - lambda: |-
+       if (x <= -100) {
+         return 0;
+       } else {
+         if (x >= -50) {
+           return 100;
+         } else {
+           return 2 * (x + 100);
+         }
+       }
