@@ -10,3 +10,4 @@ This ESPHome configuration provides local control for Atomberg fans with Tuya-ba
 - 💡 **LED control** (on/off)
 - 📶 **WiFi signal monitoring**
 - 🔄 **Automatic ON** after power cycle helps mimmics a regular fan
+
