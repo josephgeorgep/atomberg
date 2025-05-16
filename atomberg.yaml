@@ -1,5 +1,5 @@
 substitutions:
-  devicename: bedroomfan
+  devicename: atomberg
 
 esphome:
   name: $devicename
@@ -9,10 +9,9 @@ esp8266:
 
 
 logger:
-  level: INFO  # This will hide the datapoint messages
+  level: INFO  # This will help hide the annoying datapoint messages
   baud_rate: 0
-#logger:
-  #baud_rate: 0
+
 
 uart:
   rx_pin: GPIO13
@@ -21,7 +20,7 @@ uart:
 
 tuya:
 
-# Tuya MCU Power Switch (Datapoint 1)
+# Fan Power Switch
 switch:
   - platform: "tuya"
     name: "$devicename Power"
@@ -29,12 +28,12 @@ switch:
     switch_datapoint: 1
     internal: true
 
-# Tuya LED Control (Datapoint 9) - NEW SECTION
+# Fan LED Switch
   - platform: "tuya"
     name: "$devicename LED"
     id: mybedroom_fan_led
     switch_datapoint: 9
-    restore_mode: RESTORE_DEFAULT_OFF  # Optional: Set default state after power loss
+    restore_mode: RESTORE_DEFAULT_OFF 
 
 number:
   - platform: "tuya"
@@ -44,7 +43,7 @@ number:
     min_value: 1
     max_value: 6  # Includes all speeds including boost
     step: 1
-    internal: true  # Hide from Home Assistant
+    internal: true 
 
 fan:
   - platform: tuya
@@ -52,7 +51,7 @@ fan:
     id: mybedroom_fan
     switch_datapoint: 1
     speed_datapoint: 3
-    speed_count: 6  # Must match number's max_value
+    speed_count: 6 
 
 api:
 
@@ -60,18 +59,23 @@ ota:
   - platform: esphome
 
 wifi:
-  ssid: !secret wifi_id
-  password: !secret wifi_pw
+  ssid: YOURSSID
+  password: YOUR PASSWORD
+
   ap:
     ssid: $devicename
-    password: "1122334455"
+    password: "12345" #CHANGE TO A PASSWORD OF YOUR CHOICE
+
+#THE FOLLOWING SECTION IS TO TURN ON THE FAN ON POWER CYCLE IN MEDIUM SPEED. YOU MAY REMOVE THIS PART IF YOU DONT WANT THIS BEHAVIOUR 
+
   on_connect:
-    - delay: 1000ms  # Wait for MCU to initialize
-    - switch.turn_on: mybedroom_fan_switch
-    - delay: 500ms  # Small delay between commands
+    - delay: 1000ms 
+    - switch.turn_on: 
+    - delay: 500ms  
     - number.set:
           id: mybedroom_fan_speed
-          value: 3  # Default speed (medium)
+          value: 3 
+
 
 captive_portal:
 web_server:
