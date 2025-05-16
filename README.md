@@ -1,4 +1,4 @@
-# Atomberg Fan ESPHome Integration (TYWE1S Module)
+# Atomberg Fan ESPHome (TYWE1S Module)
 
 
 
