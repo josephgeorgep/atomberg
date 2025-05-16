@@ -14,7 +14,7 @@ This ESPHome configuration provides local control for Atomberg fans with Tuya-ba
 
 ## Soldering Insights
 
-Only ground can be soldered in the given pads (marked in red)
+Only ground can be soldered in the given pads (marked in red). None of the other pads here works!
 
 ![image alt](https://github.com/josephgeorgep/atomberg/blob/d3205859a1c2604d09c4c08dceb7bda9cfacec2c/assets/board.png)
 
