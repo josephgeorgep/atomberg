@@ -11,3 +11,17 @@ This ESPHome configuration provides local control for Atomberg fans with Tuya-ba
 - 📶 **WiFi signal monitoring**
 - 🔄 **Automatic ON** after power cycle helps mimmics a regular fan
 
+
+## Soldering Insights
+
+Only ground can be soldered in the given pads (marked in red)
+
+![image alt](https://github.com/josephgeorgep/atomberg/blob/d3205859a1c2604d09c4c08dceb7bda9cfacec2c/assets/board.png)
+
+
+![image alt](https://github.com/josephgeorgep/atomberg/blob/d3205859a1c2604d09c4c08dceb7bda9cfacec2c/assets/TYWE1S.png)
+
+The pins **IO0**, **3.3V**, **TX**, **RX** should be soldered directly to the MCU as shown in the pinout.
+make sure to gnd GPIO0 (IO0) for taking the MCU into flashing mode :) 
+
+Happy flashinggggg ;)
