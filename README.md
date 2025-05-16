@@ -18,8 +18,6 @@ This ESPHome configuration provides local control for Atomberg fans with Tuya-ba
 - Atomberg fan with Tuya-based WiFi module
 - TYWE1S module
 - USB UART Flasher
-- UART connection wires
-- 1kΩ resistors (for voltage level shifting if needed)
 
 ## Installation
 
