@@ -12,12 +12,6 @@ This ESPHome configuration provides local control for Atomberg fans with Tuya-ba
 - 🔄 **Automatic ON** after power cycle helps mimmics a regular fan
 
 
-## Hardware Requirements
-
-- Atomberg fan with Tuya-based WiFi module
-- TYWE1S module
-- USB UART Flasher
-
 ## Installation
 
 ### 1. Flashing ESPHome
